@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+.gameTitle {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+#player1Board {
+    width: 400px;
+    height: 400px;
+}
+
+#player2Board {
+    width: 400px;
+    height: 400px;
+}
+
+#player1Input {
+    margin: 50px 50px
+}
+
+#boards {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-evenly;
+}
+
+.boardContainer {
+    margin: 0 20px;
+}
+
+.placeBattleshipsContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.placeBattleshipForm {
+    width: 300px;
+    margin: 10px 0;
+}
+
+#placeBattleships {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#functionParameter {
+    text-align: center
+}
+
+#functionInput {
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    position: relative;
+}
+
+.parameterInput {
+    width: 50px;
+    height: 50px;
+    border: 2px solid slategray;
+}
+
+.parameterText {
+    width: 50px;
+    height: 50px;
+    border: 2px solid slategray;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;
+}
+
+.parameterItem {
+    /* margin: 0 5px; */
+}
+
+.parameterSubmit {
+    margin: 0 30px;
+}
+
+input {
+    text-align: center;
+  }
+  
+::-webkit-input-placeholder {
+    text-align: center;
+}
+
+:-moz-placeholder {
+    text-align: center;
+}
+
+.invisible {
+    display: none;
+}
+
+.exponent {
+    width: 30px;
+    height: 30px;
+    
+}

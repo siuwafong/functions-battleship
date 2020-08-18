@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" />
+    <title>Functions Battleship</title>
+</head>
+<body>
+
+<h1 class="gameTitle">Functions Battleship</h1>
+
+<div id="boards">
+    
+    <div class="boardContainer">
+        <h3> Player 1 </h3>
+        <div class="board" id="player1Board"> </div>
+    </div>
+
+    <div class="boardContainer">
+        <h3> Player 2 </h3>
+        <div class="board" id="player2Board"> </div>
+    </div>
+
+</div>
+
+<div id="placeBattleshipsForm">
+    <h2 class="gameTitle"> Place your battleships </h2>
+
+        <div id="placeBattleships">
+            <form id="player1placeBattleships" class="placeBattleshipsContainer" >
+                <input required class="placeBattleshipForm" name="smallShip" data-length="3" placeholder="Small Ship (3 units)" type="password" name="p1smallShip" />
+                <input required class="placeBattleshipForm" name="submarine" data-length="4" placeholder="Submarine (4 units)" type="password" name="p1submarine" />
+                <input required class="placeBattleshipForm" name="battleship" data-length="5" placeholder="Battleship (5 units)" type="password" name="p1battleship" />
+                <input required class="placeBattleshipForm" name="carrier" data-length="6" placeholder="Carrier (6 units)" type="password" name="p1carrier" />
+                <button id="player1Submit" data-player="1" type="submit"> Place Battleships </button>
+            </form>
+
+            <form id="player2placeBattleships" class="placeBattleshipsContainer">
+                <input required class="placeBattleshipForm" data-length="3" placeholder="Small Ship (3 units)" type="password" name="smallShip" />
+                <input required class="placeBattleshipForm" data-length="4" placeholder="Submarine (4 units)" type="password" name="submarine" />
+                <input required class="placeBattleshipForm" data-length="5" placeholder="Battleship (5 units)" type="password" name="battleship" />
+                <input required class="placeBattleshipForm" data-length="6" placeholder="Carrier (6 units)" type="password" name="carrier" />
+                <button id="player2Submit" data-player="2" type="submit"> Place Battleships </button>
+            </form>
+        </div>
+
+</div>
+
+<!-- add "invisible" class back to the div below -->
+<div id="functionInputs" >
+    <div id="functionParameter"> </div>
+    <div id="parentFunction"> </div>
+
+</div>
+
+<script src="https://www.desmos.com/api/v1.5/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/7.1.0/math.js" integrity="sha512-fV7AgA3aFCdEFQgTcyJrUr5ZAMlRvCOxVIuLyX8Ru20HYFy9B9bOi74i6IsymKw0i9XM9V51aDEbFXqBPG/cKQ==" crossorigin="anonymous"></script>
+<script src="script.js"> </script>
+</body>
+</html>
