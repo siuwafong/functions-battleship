@@ -11,6 +11,40 @@
 <h1 class="gameTitle">Functions Battleship</h1>
 
 <div id="boards">
+
+    <button id="rules-btn" class="btn rules-btn">Show Rules</button>
+    <div id="rules" class="rules">
+        <h2> How To Play: </h2>
+        <p> Each player first sets up their battleships.  
+            In each input, type the first x-value of where you want to place the ship, then the y-value,
+             and lastly "v" or "h", depending on whether you want to place the ship vertically or horizontally.
+             
+        </p>
+        
+        <p> These values must be separated by a comma, with no spaces in between.
+           Examples: if you type "2,-4,h" for the small ship, then its coordinates will be
+            (2, -4), (3, -4) and (4, -4).  If you type "5,0,v" for the submarine, then the coordinates will be 
+            (5, 0), (5, 1), (5, 2) and (5, 3)
+        </p>
+
+        <p> Next, players will take turns graphing functions.  The type of function and one of the parameters will be given.
+            You can complete the remaining parameter(s) by inputting an integer value between -10 and 10 (in the case of "a" it also cannot be 0). 
+            If the x- and y-values of any of the graph's points are within 0.1 of a ship's point, then that ship will be hit.
+        </p>
+
+        <p> A ship is sunk when all their points are hit.  If a player sinks all their opponent's ships, then they win.
+        </p>
+
+        <form id="visibilityForm">
+            <h4 id="optionsHeading"> Options </h4>
+            <label for="hideShips">Hide Ships </label>
+            <input type="radio" name="showShip" value="true">
+            <label for="showShips"> Show Ships </label>
+            <input type="radio" name="showShip" value="false">
+        </form>
+
+        <button id="close-btn" class="btn">Close</button>
+    </div>
     
     <div class="boardContainer">
         <h3> Player 1 </h3>
@@ -47,11 +81,46 @@
 
 </div>
 
+<div id="alertMsg">
+</div>
+
 <!-- add "invisible" class back to the div below -->
 <div id="functionInputs" >
     <div id="functionParameter"> </div>
     <div id="parentFunction"> </div>
+    
+</div>
 
+<div > 
+    <table id="scoreTable">
+        <thead>
+            <tr>
+                <th colspan="3"> Score </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="p1smallShipRemaining"> </td>
+                <td>Small Ship </td>
+                <td id="p2smallShipRemaining"> </td>
+            </tr>
+            <tr>
+                <td id="p1submarineRemaining"> </td>
+                <td>Submarine </td>
+                <td id="p2submarineRemaining"> </td>
+            </tr>
+            <tr>
+                <td id="p1battleshipRemaining"> </td>
+                <td>Battleship </td>
+                <td id="p2battleshipRemaining"> </td>
+            </tr>
+            <tr>
+                <td id="p1carrierRemaining"> </td>
+                <td>Carrier </td>
+                <td id="p2carrierRemaining"> </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <script src="https://www.desmos.com/api/v1.5/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>

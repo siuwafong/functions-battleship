@@ -4,6 +4,36 @@
     font-family: 'Roboto', sans-serif;
 }
 
+#optionsHeading {
+    margin-bottom: 0;
+}
+
+.rules-btn {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
+
+.rules {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: crimson;
+    color: #fff;
+    min-height: 100vh;
+    width: 400px;
+    padding: 20px;
+    line-height: 1.5;
+    transform: translateX(-440px);
+    transition: transform 1s ease-in-out;
+    z-index: 2
+}
+
+.rules.show {
+    transform: translateX(0);
+}
+
+
 .gameTitle {
     text-align: center;
     margin-bottom: 0;
@@ -49,8 +79,10 @@
 }
 
 #functionParameter {
-    text-align: center
+    text-align: center;
+    margin-bottom: 15px;
 }
+
 
 #functionInput {
     display: flex;
@@ -61,21 +93,26 @@
 
 .parameterInput {
     width: 50px;
-    height: 50px;
-    border: 2px solid slategray;
+    height: 68px;
+    line-height: 50px;
+    /* border: 2px solid slategray; */
+    font-size: 24px;
+    transform: translateY(-10px);
 }
 
 .parameterText {
-    width: 50px;
-    height: 50px;
-    border: 2px solid slategray;
+    width: 40px;
+    height: 70px;
+    /* border: 2px solid slategray; */
     text-align: center;
     vertical-align: middle;
     line-height: 50px;
+    font-size: 24px;
 }
 
 .parameterItem {
     /* margin: 0 5px; */
+    border: none;
 }
 
 .parameterSubmit {
@@ -98,8 +135,25 @@ input {
     display: none;
 }
 
-.exponent {
-    width: 30px;
-    height: 30px;
-    
+/* .exponent {
+    width: 20px;
+    text-align: left;
+} */
+
+#sine {
+    width: 80px;
+}
+
+#scoreTable {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+thead {
+    background-color: teal;
+    color: #fff;
+}
+
+td {
+    border: 1px solid #333
 }
