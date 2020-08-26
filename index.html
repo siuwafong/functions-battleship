@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css" />
     <title>Functions Battleship</title>
 </head>
@@ -12,7 +13,7 @@
 
 <div id="boards">
 
-    <button id="rules-btn" class="btn rules-btn">Show Rules</button>
+    <button id="rules-btn" class="btn btn-primary rules-btn">Show Rules</button>
     <div id="rules" class="rules">
         <h2> How To Play: </h2>
         <p> Each player first sets up their battleships.  
@@ -23,8 +24,8 @@
         
         <p> These values must be separated by a comma, with no spaces in between.
            Examples: if you type "2,-4,h" for the small ship, then its coordinates will be
-            (2, -4), (3, -4) and (4, -4).  If you type "5,0,v" for the submarine, then the coordinates will be 
-            (5, 0), (5, 1), (5, 2) and (5, 3)
+            (2,-4), (3,-4) and (4,-4).  If you type "5,0,v" for the submarine, then the coordinates will be 
+            (5,0), (5,1), (5,2) and (5,3)
         </p>
 
         <p> Next, players will take turns graphing functions.  The type of function and one of the parameters will be given.
@@ -37,13 +38,13 @@
 
         <form id="visibilityForm">
             <h4 id="optionsHeading"> Options </h4>
-            <label for="hideShips">Hide Ships </label>
-            <input type="radio" name="showShip" value="true">
-            <label for="showShips"> Show Ships </label>
-            <input type="radio" name="showShip" value="false">
+            <label for="hideShips" >Hide Ships </label>
+            <input checked type="radio" name="showShip" value="true" id="showShipOption">
+            <label for="showShips" > Show Ships </label>
+            <input type="radio" name="showShip" value="false" id="hideShipOption">
         </form>
 
-        <button id="close-btn" class="btn">Close</button>
+        <button id="close-btn" class="btn btn-secondary">Close</button>
     </div>
     
     <div class="boardContainer">
@@ -62,21 +63,25 @@
     <h2 class="gameTitle"> Place your battleships </h2>
 
         <div id="placeBattleships">
-            <form id="player1placeBattleships" class="placeBattleshipsContainer" >
-                <input required class="placeBattleshipForm" name="smallShip" data-length="3" placeholder="Small Ship (3 units)" type="password" name="p1smallShip" />
-                <input required class="placeBattleshipForm" name="submarine" data-length="4" placeholder="Submarine (4 units)" type="password" name="p1submarine" />
-                <input required class="placeBattleshipForm" name="battleship" data-length="5" placeholder="Battleship (5 units)" type="password" name="p1battleship" />
-                <input required class="placeBattleshipForm" name="carrier" data-length="6" placeholder="Carrier (6 units)" type="password" name="p1carrier" />
-                <button id="player1Submit" data-player="1" type="submit"> Place Battleships </button>
-            </form>
+            <div class="form-group">
+                <form id="player1placeBattleships" class="placeBattleshipsContainer" >
+                    <input required class="placeBattleshipForm form-control" name="smallShip" data-length="3" placeholder="Small Ship (3 units)" type="password" name="p1smallShip" />
+                    <input required class="placeBattleshipForm form-control" name="submarine" data-length="4" placeholder="Submarine (4 units)" type="password" name="p1submarine" />
+                    <input required class="placeBattleshipForm form-control" name="battleship" data-length="5" placeholder="Battleship (5 units)" type="password" name="p1battleship" />
+                    <input required class="placeBattleshipForm form-control" name="carrier" data-length="6" placeholder="Carrier (6 units)" type="password" name="p1carrier" />
+                    <button id="player1Submit" data-player="1" type="submit" class="btn btn-success"> Place Battleships </button>
+                </form>
+            </div>
 
-            <form id="player2placeBattleships" class="placeBattleshipsContainer">
-                <input required class="placeBattleshipForm" data-length="3" placeholder="Small Ship (3 units)" type="password" name="smallShip" />
-                <input required class="placeBattleshipForm" data-length="4" placeholder="Submarine (4 units)" type="password" name="submarine" />
-                <input required class="placeBattleshipForm" data-length="5" placeholder="Battleship (5 units)" type="password" name="battleship" />
-                <input required class="placeBattleshipForm" data-length="6" placeholder="Carrier (6 units)" type="password" name="carrier" />
-                <button id="player2Submit" data-player="2" type="submit"> Place Battleships </button>
-            </form>
+            <div class="form-group">
+                <form id="player2placeBattleships" class="placeBattleshipsContainer">
+                    <input required class="placeBattleshipForm form-control" data-length="3" placeholder="Small Ship (3 units)" type="password" name="smallShip" />
+                    <input required class="placeBattleshipForm form-control" data-length="4" placeholder="Submarine (4 units)" type="password" name="submarine" />
+                    <input required class="placeBattleshipForm form-control" data-length="5" placeholder="Battleship (5 units)" type="password" name="battleship" />
+                    <input required class="placeBattleshipForm form-control" data-length="6" placeholder="Carrier (6 units)" type="password" name="carrier" />
+                    <button id="player2Submit" data-player="2" type="submit" class="btn btn-success"> Place Battleships </button>
+                </form>
+            </div>
         </div>
 
 </div>
@@ -85,17 +90,17 @@
 </div>
 
 <!-- add "invisible" class back to the div below -->
-<div id="functionInputs" >
+<div id="functionInputs" class="invisible">
     <div id="functionParameter"> </div>
     <div id="parentFunction"> </div>
     
 </div>
 
-<div > 
-    <table id="scoreTable">
-        <thead>
+<div class="invisible"> 
+    <table id="scoreTable" class="table table-striped table-sm">
+        <thead class="thead-dark">
             <tr>
-                <th colspan="3"> Score </th>
+                <th scope="col" colspan="3"> Score </th>
             </tr>
         </thead>
         <tbody>

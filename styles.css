@@ -33,6 +33,9 @@
     transform: translateX(0);
 }
 
+#showShipOption {
+    margin-right: 10px;
+}
 
 .gameTitle {
     text-align: center;
@@ -89,6 +92,10 @@
     /* align-items: center; */
     justify-content: center;
     position: relative;
+    border: 2px solid blue;
+    margin: 0 20%;
+    padding: 20px 0;
+    border-radius: 10px;
 }
 
 .parameterInput {
@@ -98,6 +105,7 @@
     /* border: 2px solid slategray; */
     font-size: 24px;
     transform: translateY(-10px);
+
 }
 
 .parameterText {
@@ -116,7 +124,8 @@
 }
 
 .parameterSubmit {
-    margin: 0 30px;
+    margin: 0 20px;
+    height: 50px;
 }
 
 input {
@@ -149,11 +158,22 @@ input {
     margin-right: auto;
 }
 
+.table {
+    width: 40%;
+    margin-top: 20px;
+}
+
 thead {
-    background-color: teal;
-    color: #fff;
+    /* background-color: teal;
+    color: #fff; */
+    text-align: center;
+}
+
+tr {
+    text-align: center;
 }
 
 td {
     border: 1px solid #333
 }
+

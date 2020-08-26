@@ -232,7 +232,7 @@ const generateFunction = () => {
                                 <div class="parameterText parameterItem"> x </div>
                                 <div class="parameterText parameterItem"> + </div>
                                 <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="b" />
-                                <button type="submit" class="parameterItem parameterSubmit" > Submit </button>
+                                <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                             </form>
                         </div>
 
@@ -248,7 +248,7 @@ const generateFunction = () => {
                                 <div class="parameterText parameterItem"> x </div>
                                 <div class="parameterText parameterItem"> + </div>
                                 <div class="parameterText parameterItem"> ${parameterValue} </div>
-                                <button type="submit" class="parameterItem parameterSubmit"> Submit </button>
+                                <button type="submit" class="parameterItem parameterSubmit btn btn-info"> Submit </button>
                             </form>
                         </div>
                 ` 
@@ -286,7 +286,7 @@ const generateFunction = () => {
                             <div class="parameterText parameterItem"><sup>2</sup></div>
                             <div class="parameterText parameterItem "> + </div>
                             <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="c" />
-                            <button type="submit" class="parameterItem parameterSubmit" > Submit </button>
+                            <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                         </form>
                     </div>
 
@@ -304,7 +304,7 @@ const generateFunction = () => {
                         <div class="parameterText parameterItem"><sup>2</sup></div>
                         <div class="parameterText parameterItem "> + </div>
                         <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="c" />
-                        <button type="submit" class="parameterItem parameterSubmit" > Submit </button>
+                        <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                     </form>
                 </div>
             `
@@ -321,7 +321,7 @@ const generateFunction = () => {
                         <div class="parameterText parameterItem"><sup>2</sup></div>
                         <div class="parameterText parameterItem "> + </div>
                         <div class="parameterText parameterItem"> ${parameterValue} </div>
-                        <button type="submit" class="parameterItem parameterSubmit" > Submit </button>
+                        <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                     </form>
                 </div>
             `
@@ -359,7 +359,7 @@ const generateFunction = () => {
                             <div class="parameterText parameterItem"><sup>3</sup></div>
                             <div class="parameterText parameterItem"> + </div>
                             <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="c" />
-                            <button type="submit" class="parameterItem parameterSubmit" > Submit </button>
+                            <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                         </form>
                     </div>
 
@@ -377,7 +377,7 @@ const generateFunction = () => {
                         <div class="parameterText parameterItem"><sup>3</sup></div>
                         <div class="parameterText parameterItem"> + </div>
                         <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="c" />
-                        <button type="submit" class="parameterItem parameterSubmit" > Submit </button>
+                        <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                     </form>
                 </div>
             `
@@ -394,7 +394,7 @@ const generateFunction = () => {
                         <div class="parameterText parameterItem"><sup>3</sup></div>
                         <div class="parameterText parameterItem"> + </div>
                         <div class="parameterText parameterItem"> ${parameterValue} </div>
-                        <button type="submit" class="parameterItem parameterSubmit" > Submit </button>
+                        <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                     </form>
                 </div>
             `
@@ -430,7 +430,7 @@ const generateFunction = () => {
                         <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="d" />
                         <div class="parameterText parameterItem"> ) + </div>
                         <input required  type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="c" />
-                        <button type="submit" class="parameterItem parameterSubmit" > Submit </button>
+                        <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                     </form>
                 </div>
             `        
@@ -445,7 +445,7 @@ const generateFunction = () => {
                         <div class="parameterText parameterItem"> ${parameterValue} </div>
                         <div class="parameterText parameterItem"> ) + </div>
                         <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="c" />
-                        <button type="submit" class="parameterItem parameterSubmit" > Submit </button>
+                        <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                     </form>
                 </div>
             ` 
@@ -460,7 +460,7 @@ const generateFunction = () => {
                         <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="c" />
                         <div class="parameterText parameterItem"> )</div>
                         <div class="parameterText parameterItem"> + ${parameterValue} </div>
-                        <button type="submit" class="parameterItem parameterSubmit" > Submit </button>
+                        <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                     </form>
                 </div>
             ` 
@@ -499,7 +499,7 @@ const generateFunction = () => {
                     <div class="parameterText parameterItem "> )</div>
                     <div class="parameterText parameterItem">+ </div>
                     <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="c" />
-                    <button type="submit" class="parameterItem parameterSubmit" > Submit </button>
+                    <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                 </form>
             </div>
             `      
@@ -511,11 +511,11 @@ const generateFunction = () => {
                     <div class="parameterText parameterItem"> y= </div>
                     <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="a" />
                     <div class="parameterText parameterItem "> (2<sup>x+</sup> </div>
-                    <div class="parameterText parameterItem"> ${parameterValue} </div>
+                    <div class="parameterText parameterItem"> <sup>${parameterValue}</sup> </div>
                     <div class="parameterText parameterItem "> )</div>
                     <div class="parameterText parameterItem">+ </div>
                     <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="c" />
-                    <button type="submit" class="parameterItem parameterSubmit" > Submit </button>
+                    <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                 </form>
             </div>
             `     
@@ -531,7 +531,7 @@ const generateFunction = () => {
                     <div class="parameterText parameterItem "> )</div>
                     <div class="parameterText parameterItem">+ </div>
                     <div class="parameterText parameterItem"> ${parameterValue} </div>
-                    <button type="submit" class="parameterItem parameterSubmit" > Submit </button>
+                    <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                 </form>
             </div>
             `     
