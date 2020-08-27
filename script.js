@@ -22,6 +22,8 @@ const p2carrier = document.querySelector("#p2carrier")
 
 // Function input DOM
 const functionInputs = document.querySelector("#functionInputs")
+const playerTurnMsg = document.querySelector("#playerTurnMsg")
+const alertMsg = document.querySelector("#alertMsg")
 
 // Rules DOM
 const rulesBtn = document.querySelector('#rules-btn');
@@ -30,6 +32,7 @@ const rules = document.querySelector('#rules');
 const visibilityForm = document.querySelector("#visibilityForm")
 
 // Table DOM
+const scoreTableContainer = document.querySelector("#scoreTableContainer")
 const p1battleshipRemaining = document.querySelector("#p1battleshipRemaining")
 const p2battleshipRemaining = document.querySelector("#p2battleshipRemaining")
 const p1smallShipRemaining = document.querySelector("#p1smallShipRemaining")
@@ -38,6 +41,7 @@ const p1submarineRemaining = document.querySelector("#p1submarineRemaining")
 const p2submarineRemaining = document.querySelector("#p2submarineRemaining")
 const p1carrierRemaining = document.querySelector("#p1carrierRemaining")
 const p2carrierRemaining = document.querySelector("#p2carrierRemaining")
+const shipRemaining = document.querySelectorAll(".shipRemaining")
 
 const setScore = () => {
     p1battleshipRemaining.innerText = player1Stats.battleship.remaining
@@ -50,7 +54,7 @@ const setScore = () => {
     p2carrierRemaining.innerText = player2Stats.carrier.remaining
 }
 
-let shipVisibility
+let shipVisibility = true
 visibilityForm.addEventListener("change", e => shipVisibility = (e.target.value === "true"))
 
 //Rules and close event handlers
@@ -99,16 +103,12 @@ calculator2.setMathBounds({
     top: 10,
 })
 
-calculator1.setExpression({ 
-    id: "move",
-    latex: `y= \sin(x)`,
-    lineStyle: Desmos.Styles.DASHED,
-    points: true,
-    secret: true,
-})
+const calculator1DefaultState = calculator1.getState()
+const calculator2DefaultState = calculator2.getState()
 
 // Game setup
 let invalidEntries = false
+
 let player1Stats = 
     {
         smallShip: {
@@ -171,11 +171,13 @@ setScore()
 
 let plottedGraphNumber = 0
 let mathFunction;
+let isGameOver = false
 let player1Ships = []
 let player2Ships = []
 
 // Turns state
 let playerTurn = 1;
+playerTurnMsg.innerText = `Player ${playerTurn}'s Turn`
 
 const parentFunctions = [
     {
@@ -222,8 +224,7 @@ const generateFunction = () => {
         
         if (randomParameter === "slope") {
             parentFunction.innerHTML = 
-                `   
-                    
+                `                
                         <div>
                             <form id="functionInput">
                                 <div class="parameterText parameterItem"> y </div>
@@ -231,7 +232,7 @@ const generateFunction = () => {
                                 <div class="parameterText parameterItem"> ${parameterValue} </div>
                                 <div class="parameterText parameterItem"> x </div>
                                 <div class="parameterText parameterItem"> + </div>
-                                <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="b" />
+                                <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="b" />
                                 <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                             </form>
                         </div>
@@ -244,7 +245,7 @@ const generateFunction = () => {
                             <form id="functionInput">
                                 <div class="parameterText parameterItem"> y </div>
                                 <div class="parameterText parameterItem"> = </div>
-                                <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="m" />
+                                <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="m" />
                                 <div class="parameterText parameterItem"> x </div>
                                 <div class="parameterText parameterItem"> + </div>
                                 <div class="parameterText parameterItem"> ${parameterValue} </div>
@@ -281,11 +282,11 @@ const generateFunction = () => {
                             <div class="parameterText parameterItem"> y= </div>
                             <div class="parameterText parameterItem"> ${parameterValue} </div>
                             <div class="parameterText parameterItem"> (x + </div>
-                            <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="d" />
+                            <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="d" />
                             <div class="parameterText parameterItem">)</div>
                             <div class="parameterText parameterItem"><sup>2</sup></div>
                             <div class="parameterText parameterItem "> + </div>
-                            <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="c" />
+                            <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="c" />
                             <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                         </form>
                     </div>
@@ -297,13 +298,13 @@ const generateFunction = () => {
                 <div>
                     <form id="functionInput">
                         <div class="parameterText parameterItem"> y= </div>
-                        <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="a" />
+                        <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="a" />
                         <div class="parameterText parameterItem"> (x + </div>
                         <div class="parameterText parameterItem"> ${parameterValue} </div>
                         <div class="parameterText parameterItem">)</div>
                         <div class="parameterText parameterItem"><sup>2</sup></div>
                         <div class="parameterText parameterItem "> + </div>
-                        <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="c" />
+                        <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="c" />
                         <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                     </form>
                 </div>
@@ -314,9 +315,9 @@ const generateFunction = () => {
                 <div>
                     <form id="functionInput">
                         <div class="parameterText parameterItem"> y= </div>
-                        <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="a" />
+                        <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="a" />
                         <div class="parameterText parameterItem"> (x + </div>
-                        <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="k" />
+                        <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="k" />
                         <div class="parameterText parameterItem">)</div>
                         <div class="parameterText parameterItem"><sup>2</sup></div>
                         <div class="parameterText parameterItem "> + </div>
@@ -354,11 +355,11 @@ const generateFunction = () => {
                             <div class="parameterText parameterItem"> y= </div>
                             <div class="parameterText parameterItem"> ${parameterValue} </div>
                             <div class="parameterText parameterItem"> (x + </div>
-                            <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="d" />
+                            <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="d" />
                             <div class="parameterText parameterItem">)</div>
                             <div class="parameterText parameterItem"><sup>3</sup></div>
                             <div class="parameterText parameterItem"> + </div>
-                            <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="c" />
+                            <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="c" />
                             <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                         </form>
                     </div>
@@ -370,13 +371,13 @@ const generateFunction = () => {
                 <div>
                     <form id="functionInput">
                         <div class="parameterText parameterItem"> y= </div>
-                        <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="a" />
+                        <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="a" />
                         <div class="parameterText parameterItem"> (x + </div>
                         <div class="parameterText parameterItem"> ${parameterValue} </div>
                         <div class="parameterText parameterItem">)</div>
                         <div class="parameterText parameterItem"><sup>3</sup></div>
                         <div class="parameterText parameterItem"> + </div>
-                        <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="c" />
+                        <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="c" />
                         <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                     </form>
                 </div>
@@ -387,9 +388,9 @@ const generateFunction = () => {
                 <div>
                     <form id="functionInput">
                         <div class="parameterText parameterItem"> y= </div>
-                        <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="a" />
+                        <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="a" />
                         <div class="parameterText parameterItem"> (x + </div>
-                        <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="k" />
+                        <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="k" />
                         <div class="parameterText parameterItem">)</div>
                         <div class="parameterText parameterItem"><sup>3</sup></div>
                         <div class="parameterText parameterItem"> + </div>
@@ -427,9 +428,9 @@ const generateFunction = () => {
                         <div class="parameterText parameterItem"> y= </div>
                         <div class="parameterText parameterItem"> ${parameterValue} </div>
                         <div class="parameterText parameterItem" id="sine"> sin(x+ </div>
-                        <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="d" />
+                        <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="d" />
                         <div class="parameterText parameterItem"> ) + </div>
-                        <input required  type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="c" />
+                        <input required  type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="c" />
                         <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                     </form>
                 </div>
@@ -440,11 +441,11 @@ const generateFunction = () => {
                 <div>
                     <form id="functionInput">
                         <div class="parameterText parameterItem"> y= </div>
-                        <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="a" />
+                        <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="a" />
                         <div class="parameterText parameterItem" id="sine"> sin(x+ </div>
                         <div class="parameterText parameterItem"> ${parameterValue} </div>
                         <div class="parameterText parameterItem"> ) + </div>
-                        <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="c" />
+                        <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="c" />
                         <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                     </form>
                 </div>
@@ -455,9 +456,9 @@ const generateFunction = () => {
                 <div>
                     <form id="functionInput">
                         <div class="parameterText parameterItem"> y= </div>
-                        <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="a" />
+                        <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="a" />
                         <div class="parameterText parameterItem" id="sine"> sin(x+ </div>
-                        <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="c" />
+                        <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="c" />
                         <div class="parameterText parameterItem"> )</div>
                         <div class="parameterText parameterItem"> + ${parameterValue} </div>
                         <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
@@ -495,10 +496,10 @@ const generateFunction = () => {
                     <div class="parameterText parameterItem"> ${parameterValue} </div>
                     <div class="parameterText parameterItem"> (2 </div>
                     <div class="parameterText parameterItem "><sup>x+</sup></div>
-                    <input required type="number" min="-10" max="10" class="parameterInput parameterItem exponent" placeholder="d" />
+                    <input required type="number" min="-20" max="20" class="parameterInput parameterItem exponent" placeholder="d" />
                     <div class="parameterText parameterItem "> )</div>
                     <div class="parameterText parameterItem">+ </div>
-                    <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="c" />
+                    <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="c" />
                     <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                 </form>
             </div>
@@ -509,12 +510,12 @@ const generateFunction = () => {
             <div>
                 <form id="functionInput">
                     <div class="parameterText parameterItem"> y= </div>
-                    <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="a" />
+                    <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="a" />
                     <div class="parameterText parameterItem "> (2<sup>x+</sup> </div>
                     <div class="parameterText parameterItem"> <sup>${parameterValue}</sup> </div>
                     <div class="parameterText parameterItem "> )</div>
                     <div class="parameterText parameterItem">+ </div>
-                    <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="c" />
+                    <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="c" />
                     <button type="submit" class="parameterItem parameterSubmit btn btn-info" > Submit </button>
                 </form>
             </div>
@@ -525,9 +526,9 @@ const generateFunction = () => {
             <div>
                 <form id="functionInput">
                     <div class="parameterText parameterItem"> y= </div>
-                    <input required type="number" min="-10" max="10" class="parameterInput parameterItem" placeholder="a" />
+                    <input required type="number" min="-20" max="20" class="parameterInput parameterItem" placeholder="a" />
                     <div class="parameterText parameterItem"> (2<sup>x+</sup> </div>
-                    <input required type="number" min="-10" max="10" class="parameterInput parameterItem exponent" placeholder="d" />
+                    <input required type="number" min="-20" max="20" class="parameterInput parameterItem exponent" placeholder="d" />
                     <div class="parameterText parameterItem "> )</div>
                     <div class="parameterText parameterItem">+ </div>
                     <div class="parameterText parameterItem"> ${parameterValue} </div>
@@ -630,11 +631,15 @@ const drawMove = (e, chosenFunction, parameterValue, randomParameter, playerTurn
     // TODO: Check for hits
     checkForHits(functionToBeGraphed)
 
+
+
     // TODO: Check for winner
     checkForWinner(playerTurn)
 
     // TODO: Finish turn (reset state)
-    finishTurn(playerTurn);
+    if (isGameOver === false) {
+        finishTurn(playerTurn);
+    }
 }
 
 const checkForHits = (functionToBeGraphed) => {
@@ -642,7 +647,7 @@ const checkForHits = (functionToBeGraphed) => {
         console.log("functionToBeEvaluated:", functionToBeGraphed.replace("x", i.toString()).replace("{", "(").replace("}", ")").replace("\\sin", "sin") )
         let checkX = i;
         let checkY = math.evaluate(functionToBeGraphed.replace("x", i.toString()).replace("{", "(").replace("}", ")").replace("\\", "") )
-
+        let hitShips = []
 
         // TODO: check for hits for player 1's turn
         if (playerTurn === 1) {
@@ -650,7 +655,8 @@ const checkForHits = (functionToBeGraphed) => {
                 for (let j=0; j < player2Stats[key].points.length; j++) {
                     console.log(`Plotted: (${checkX}, ${checkY}) vs. Ship: (${player2Stats[key].points[j].x}, ${player2Stats[key].points[j].y})`)
                     if(Math.abs(checkX - player2Stats[key].points[j].x) < 0.1 && Math.abs(checkY - player2Stats[key].points[j].y) < 0.1) {
-                        console.log(`HIT at (${checkX}, ${checkY})`)
+                        console.log(player2Stats[key].name)
+                        hitShips.push(player2Stats[key].name)
                         calculator2.setExpression({
                             id: player2Stats[key].points[j].name,
                             pointStyle: Desmos.Styles.CROSS,
@@ -663,10 +669,12 @@ const checkForHits = (functionToBeGraphed) => {
                         player2Stats[key].remaining--
                         if (player2Stats[key].points.length === 0) {
                             console.log(`You have sunk player 2's ${player2Stats[key].name}!`)
-                        }
+                        } 
                     }
                 }
             }
+            console.log(hitShips.join(", "))
+            alertMsg.innerText = `You have hit ${hitShips.join(", ")}`
         }
 
         if (playerTurn === 2) {
@@ -674,12 +682,14 @@ const checkForHits = (functionToBeGraphed) => {
                 for (let j=0; j < player1Stats[key].points.length; j++) {
                     console.log(`Plotted: (${checkX}, ${checkY}) vs. Ship: (${player1Stats[key].points[j].x}, ${player1Stats[key].points[j].y})`)
                     if(Math.abs(checkX - player1Stats[key].points[j].x) < 0.1 && Math.abs(checkY - player1Stats[key].points[j].y) < 0.1) {
-                        console.log(`HIT at (${checkX}, ${checkY})`)
+                        console.log(player1Stats[key].name)
+                        hitShips.push(player1Stats[key].name)
                         calculator1.setExpression({
                             id: player1Stats[key].points[j].name,
                             pointStyle: Desmos.Styles.CROSS,
                             latex: `(${checkX}, ${checkY})`,
-                            color: player1Stats[key].color
+                            color: player1Stats[key].color,
+                            hidden: false,
                         })
                         player1Stats[key].points.splice(j, 1);
                         player1Remaining--
@@ -690,32 +700,62 @@ const checkForHits = (functionToBeGraphed) => {
                     }
                 }
             }
+        console.log(hitShips.join(", "))
+        alertMsg.innerText = `You have hit ${hitShips.join(", ")}`
         }
-
     }
 }
 
 const checkForWinner = playerTurn => {
     // TODO: Add a winner message; disable game if there is a winner
     if (playerTurn === 1 && player2Remaining === 0) {
-        console.log("Player 1 Wins!")
+        alertMsg.innerText = "Player 1 Wins!"
+        parentFunction.innerHTML = 
+        `
+        <div>
+            <button onclick="restartGame()" class="btn btn-primary btn-lg" id="restartBtn">
+                Restart Game
+            </button>
+        </div>
+        `
+        isGameOver = true
     } else if (playerTurn === 2 && player1Remaining === 0) {
-        console.log("Player 2 Wins!")
+        alertMsg.innerText = "Player 2 Wins!"
+        parentFunction.innerHTML = 
+        `
+        <div>
+            <button onclick="restartGame()" class="btn btn-primary btn-lg" id="restartBtn">
+                Restart Game
+            </button>
+        </div>
+        `
+        isGameOver = true
     }
 }
 
 const finishTurn = player => {
 
     setScore();
+
+    // make tr red if it is 0
+    shipRemaining.forEach(ship => {
+        if (ship.innerText === "0") {
+            ship.classList.add("table-danger")
+        }
+    })
+
     // remove innerHTML from bottom
 
     // chosenFunction = parentFunctions[Math.floor(Math.random() * parentFunctions.length)]
     generateFunction();
+
     if (playerTurn === 1) {
         playerTurn = 2
     } else if (playerTurn === 2) {
         playerTurn = 1
     }
+    playerTurnMsg.innerText = `Player ${playerTurn}'s Turn`
+
 }
 
 
@@ -758,7 +798,7 @@ const checkValidEntries = event => {
             // TODO: clear only invalid entries
             event.target[i].value = "";
         }
-        alert(`Invalid number of entries for ${errors}`)
+        alertMsg.innerText = `Invalid number of entries for ${errors}`
     }
 }
 
@@ -782,7 +822,7 @@ const plotShips = (event, player) => {
                     calculator1.setExpression({
                         id: pointName,
                         latex: `(${xValue + j}, ${yValue})`,
-                        // pointStyle: Desmos.Styles.CROSS,
+                        pointStyle: Desmos.Styles.POINT,
                         color: player1Stats[shipName].color,
                         hidden: shipVisibility
                     });
@@ -799,6 +839,7 @@ const plotShips = (event, player) => {
                     calculator2.setExpression({
                         id: pointName,
                         latex: `(${xValue + j}, ${yValue})`,
+                        pointStyle: Desmos.Styles.POINT,
                         color: player2Stats[shipName].color,
                         hidden: shipVisibility
                     });
@@ -852,6 +893,7 @@ const plotShips = (event, player) => {
         if (player1placeBattleships.style.visibility === "hidden") {
             placeBattleshipsForm.style.display="none"
             functionInputs.classList.remove("invisible")
+            scoreTableContainer.classList.remove("invisible")
         }
         else { 
             player2placeBattleships.style.visibility="hidden" 
@@ -860,6 +902,7 @@ const plotShips = (event, player) => {
         if (player2placeBattleships.style.visibility === "hidden") {
             placeBattleshipsForm.style.display="none"
             functionInputs.classList.remove("invisible")
+            scoreTableContainer.classList.remove("invisible")
         }
         else { 
             player1placeBattleships.style.visibility="hidden" 
@@ -887,3 +930,105 @@ const placeBattleships = (event, player) =>  {
 
 player1placeBattleships.addEventListener("submit", e => {e.preventDefault(); placeBattleships(e, 1)})
 player2placeBattleships.addEventListener("submit", e => {e.preventDefault(); placeBattleships(e, 2)})
+
+
+const restartGameStats = () => {
+
+    generateFunction()
+
+    player1Ships = []
+    player2Ships = []
+    isGameOver = false
+
+    player1Stats = 
+    {
+        smallShip: {
+            name: "smallShip",
+            points: [],
+            color: "#c74440",
+            remaining: 3,
+        },
+        submarine: {
+            name: "submarine",
+            points: [],
+            color: "#2d70b3",
+            remaining: 4,
+        },
+        battleship: {
+            name: "battleship",
+            points: [],
+            color: "#388c46",
+            remaining: 5,
+        },
+        carrier: {
+            name: "carrier",
+            points: [],
+            color: "#6042a6",
+            remaining: 6,
+        },
+    }
+    player1Remaining = 18;
+    player2Remaining = 18
+
+    player2Stats = 
+    {
+    smallShip: {
+        name: "smallShip",
+        points: [],
+        color: "#c74440",
+        remaining: 3,
+    },
+    submarine: {
+        name: "submarine",
+        points: [],
+        color: "#2d70b3",
+        remaining: 4,
+    },
+    battleship: {
+        name: "battleship",
+        points: [],
+        color: "#388c46",
+        remaining: 5,
+    },
+    carrier: {
+        name: "carrier",
+        points: [],
+        color: "#6042a6",
+        remaining: 6,
+    },
+    }
+}
+
+const restartGame = () => {
+
+    // add "invisible" classes back to the input and table
+    functionInputs.classList.add("invisible")
+    scoreTableContainer.classList.add("invisible")
+
+    // add remove added classes to shipRemaining
+    shipRemaining.forEach(ship => {
+        if (ship.innerText === "0") {
+            ship.classList.remove("table-danger")
+        }
+    })
+
+    // show ship input
+    player1placeBattleships.style.visibility="visible"
+    player2placeBattleships.style.visibility="visible"  
+    placeBattleshipsForm.style.display="block"
+
+    alertMsg.innerText = ""
+
+    // clear graphing calculators
+    calculator1.unobserveEvent('graphReset')
+    calculator2.unobserveEvent('graphReset')
+
+    // clear forms
+    document.querySelectorAll('.placeBattleshipForm').forEach(item => item.value = "")
+
+    // clear graphs
+    calculator1.setState(calculator1DefaultState)
+    calculator2.setState(calculator2DefaultState)
+
+    restartGameStats()
+}
