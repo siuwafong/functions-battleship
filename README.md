@@ -1,4 +1,4 @@
-An online version of this app can be found on `https://functions-battleship.netlify.app/`
+An online version of this app can be found [here](https://functions-battleship.netlify.app/)
 
 # Functions Battleship
 
