@@ -194,3 +194,23 @@ td {
 #restartBtn {
     margin: auto;
 }
+
+#smallShipTitle {
+    color: #c74440;
+    font-weight: 600;
+}
+
+#submarineTitle {
+    color: #2d70b3;
+    font-weight: 600;
+}
+
+#battleshipTitle {
+    color: #388c46;
+    font-weight: 600;
+}
+
+#carrierTitle {
+    color: #6042a6;
+    font-weight: 600;
+}

@@ -1,3 +1,7 @@
+// General TODOs
+    // - add a "randomly place battleships button"
+    // - add options to use certain functions only
+    // - add a history of the player's played functions
 
 // Board DOM
 const board1 = document.querySelector("#player1Board")
@@ -55,6 +59,9 @@ const setScore = () => {
 }
 
 let shipVisibility = true
+
+alertMsg.innerText = ""
+
 visibilityForm.addEventListener("change", e => shipVisibility = (e.target.value === "true"))
 
 //Rules and close event handlers
@@ -103,6 +110,7 @@ calculator2.setMathBounds({
     top: 10,
 })
 
+// set the default state for the calculators (for restarting games)
 const calculator1DefaultState = calculator1.getState()
 const calculator2DefaultState = calculator2.getState()
 
@@ -136,8 +144,6 @@ let player1Stats =
             remaining: 6,
         },
     }
-let player1Remaining = 18;
-let player2Remaining = 18
 
 let player2Stats = 
 {
@@ -166,6 +172,9 @@ let player2Stats =
         remaining: 6,
     },
 }
+
+let player1Remaining = 18
+let player2Remaining = 18
 
 setScore()
 
@@ -549,7 +558,6 @@ const generateFunction = () => {
 
 generateFunction();
 
-
 // draw the function
 const drawMove = (e, chosenFunction, parameterValue, randomParameter, playerTurn) => {
     e.preventDefault()
@@ -602,8 +610,7 @@ const drawMove = (e, chosenFunction, parameterValue, randomParameter, playerTurn
         console.log(`functionToBeGraphed: ${functionToBeGraphed}`)
     }
 
-
-    let idToBeGraphed = `Graph${plottedGraphNumber}`
+    alertMsg.innerText = ""
     plottedGraphNumber++
 
     if (playerTurn === 2) {
@@ -631,8 +638,6 @@ const drawMove = (e, chosenFunction, parameterValue, randomParameter, playerTurn
     // TODO: Check for hits
     checkForHits(functionToBeGraphed)
 
-
-
     // TODO: Check for winner
     checkForWinner(playerTurn)
 
@@ -647,16 +652,13 @@ const checkForHits = (functionToBeGraphed) => {
         console.log("functionToBeEvaluated:", functionToBeGraphed.replace("x", i.toString()).replace("{", "(").replace("}", ")").replace("\\sin", "sin") )
         let checkX = i;
         let checkY = math.evaluate(functionToBeGraphed.replace("x", i.toString()).replace("{", "(").replace("}", ")").replace("\\", "") )
-        let hitShips = []
 
-        // TODO: check for hits for player 1's turn
         if (playerTurn === 1) {
             for (const [key] of Object.entries(player2Stats)) {
                 for (let j=0; j < player2Stats[key].points.length; j++) {
                     console.log(`Plotted: (${checkX}, ${checkY}) vs. Ship: (${player2Stats[key].points[j].x}, ${player2Stats[key].points[j].y})`)
                     if(Math.abs(checkX - player2Stats[key].points[j].x) < 0.1 && Math.abs(checkY - player2Stats[key].points[j].y) < 0.1) {
-                        console.log(player2Stats[key].name)
-                        hitShips.push(player2Stats[key].name)
+                        alertMsg.innerText = `HIT!`
                         calculator2.setExpression({
                             id: player2Stats[key].points[j].name,
                             pointStyle: Desmos.Styles.CROSS,
@@ -673,8 +675,6 @@ const checkForHits = (functionToBeGraphed) => {
                     }
                 }
             }
-            console.log(hitShips.join(", "))
-            alertMsg.innerText = `You have hit ${hitShips.join(", ")}`
         }
 
         if (playerTurn === 2) {
@@ -682,8 +682,7 @@ const checkForHits = (functionToBeGraphed) => {
                 for (let j=0; j < player1Stats[key].points.length; j++) {
                     console.log(`Plotted: (${checkX}, ${checkY}) vs. Ship: (${player1Stats[key].points[j].x}, ${player1Stats[key].points[j].y})`)
                     if(Math.abs(checkX - player1Stats[key].points[j].x) < 0.1 && Math.abs(checkY - player1Stats[key].points[j].y) < 0.1) {
-                        console.log(player1Stats[key].name)
-                        hitShips.push(player1Stats[key].name)
+                        alertMsg.innerText = `HIT!`
                         calculator1.setExpression({
                             id: player1Stats[key].points[j].name,
                             pointStyle: Desmos.Styles.CROSS,
@@ -700,14 +699,13 @@ const checkForHits = (functionToBeGraphed) => {
                     }
                 }
             }
-        console.log(hitShips.join(", "))
-        alertMsg.innerText = `You have hit ${hitShips.join(", ")}`
         }
     }
 }
 
 const checkForWinner = playerTurn => {
-    // TODO: Add a winner message; disable game if there is a winner
+    
+    // show message indicating winner and a button to start a new game
     if (playerTurn === 1 && player2Remaining === 0) {
         alertMsg.innerText = "Player 1 Wins!"
         parentFunction.innerHTML = 
@@ -735,6 +733,7 @@ const checkForWinner = playerTurn => {
 
 const finishTurn = player => {
 
+    // set the new score
     setScore();
 
     // make tr red if it is 0
@@ -744,9 +743,7 @@ const finishTurn = player => {
         }
     })
 
-    // remove innerHTML from bottom
-
-    // chosenFunction = parentFunctions[Math.floor(Math.random() * parentFunctions.length)]
+    // generate a new random function
     generateFunction();
 
     if (playerTurn === 1) {
@@ -798,11 +795,14 @@ const checkValidEntries = event => {
             // TODO: clear only invalid entries
             event.target[i].value = "";
         }
-        alertMsg.innerText = `Invalid number of entries for ${errors}`
+        alertMsg.innerText = `Invalid entries for ${errors}`
     }
 }
 
 const plotShips = (event, player) => {
+
+    alertMsg.innerText = ""
+
     for (let i = 0; i < event.target.length - 1; i++) {
 
         let shipName = event.target[i].name
