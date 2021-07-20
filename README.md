@@ -1,6 +1,6 @@
 An online version of this app can be found [here](https://functions-battleship.netlify.app/)
 
-![gif]()
+![gif](/img/functions-battleship-gif1.gif)
 
 # Functions Battleship
 
