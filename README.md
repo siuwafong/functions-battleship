@@ -1,5 +1,7 @@
 An online version of this app can be found [here](https://functions-battleship.netlify.app/)
 
+![gif]()
+
 # Functions Battleship
 
 This is a variation of the classic board game Battleship that involves plotting mathematical functions. Players plot their ships on a 10 x 10 Cartesian plane. Then, they take turns plotting graphs of functions. If the graph of a function comes within 0.1 (for both the x- and y-values) of a point where a ship lies, then that ship will be "hit". Once all the points of a ship are "hit" then it will be "sunk". When all ships are "sunk", then the other player wins.
